@@ -1,0 +1,56 @@
+{
+  "name": "@sovrin/dienstplan",
+  "version": "0.0.0",
+  "description": "staff roster management tool",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --config ./build/base.js --mode development",
+    "dev:server": "nodemon --watch server.js --watch routes --exec node_modules/.bin/micro-dev server.js --cold"
+  },
+  "author": {
+    "name": "Oleg Kamlowski",
+    "email": "n@sovrin.de"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "chai": "^4.2.0",
+    "css-loader": "^2.1.1",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "micro-dev": "^3.0.0",
+    "mocha": "^6.0.2",
+    "node-sass": "^4.11.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-hot-loader": "^4.8.0",
+    "react-router-dom": "^4.3.1",
+    "sass-loader": "^7.1.0",
+    "spectre.css": "^0.5.8",
+    "style-loader": "^0.23.1",
+    "styled-components": "^4.1.3",
+    "supertest": "^3.4.2",
+    "unfetch": "^4.1.0",
+    "use-immer": "^0.1.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1"
+  },
+  "keywords": [
+    "roster",
+    "management",
+    "staff"
+  ],
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "jsonwebtoken": "^8.5.0",
+    "lowdb": "^1.0.0",
+    "micro": "^9.3.3",
+    "micro-r": "^0.2.2",
+    "react-router": "^4.3.1"
+  }
+}
