@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {useImmer} from 'use-immer';
-import useRequest from '../hooks/useRequest';
+import React from 'react';
+import auth from '../services/auth';
 import Button from '../components/Base/Button';
+import Input from '../components/Base/Input';
 
-import {compose} from '../utils';
+import {produce} from '../utils';
 
 /**
  * User: Oleg Kamlowski <n@sovrin.de>
@@ -11,23 +11,70 @@ import {compose} from '../utils';
  * Time: 21:05
  */
 export default () => {
+    const [params, updateParams] = produce({
+        username: "",
+        password: ""
+    });
+    const [loading, setLoading] = produce(false);
 
-    const data = useRequest('http://localhost:3000/api/login', {
-            method: 'POST',
-            body: JSON.stringify({username: 'foo', password: 'bar'}),
-        },
-    );
+    /**
+     *
+     * @param e
+     * @returns {Promise<void>}
+     */
+    const onLogin = async (e) => {
+        e.preventDefault();
 
-    console.info(data);
+        setLoading(true);
+        try {
+            await auth('http://localhost:3000/api/login', params);
+        } catch (e) {
+            console.info(e);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    /**
+     *
+     * @param e
+     */
+    const onInput = (e) => {
+        const {target: {name, value}} = e;
+
+        updateParams(draft => {
+            draft[name] = value;
+        });
+    };
 
     return (
         <div className="login">
             <div className="columns">
                 <div className="column col-3"/>
                 <div className="column col-6">
-                    <input className="form-input" type="text" id="username" placeholder="Name"/>
-                    <input className="form-input" type="text" id="password" placeholder="Passwort"/>
-                    <Button loading={false}>Login</Button>
+                    <form onSubmit={onLogin}>
+                        <Input
+                            name="username"
+                            type="text"
+                            placeholder="Username"
+                            onInput={onInput}
+                        />
+
+                        <Input
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                            onInput={onInput}
+                        />
+
+                        <Button
+                            type="submit"
+                            loading={loading}
+                            onClick={onLogin}
+                        >
+                            Login
+                        </Button>
+                    </form>
                 </div>
             </div>
         </div>
