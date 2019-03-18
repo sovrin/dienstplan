@@ -1,31 +1,33 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Link from 'react-router-dom/es/Link';
+import Route from 'react-router/es/Route';
 
 import Login from '../routes/Login'
-import Route from 'react-router/es/Route';
+import Private from '../routes/Private';
+import Dashboard from '../routes/Dashboard';
 
 /**
  * User: Oleg Kamlowski <n@sovrin.de>
  * Date: 24.02.2019
  * Time: 19:30
  */
-export default class App extends Component {
+export default () => (
+    <div className="container">
+        <div>
+            <nav>
+                <Link to="/login">Login</Link>
+            </nav>
 
-    /**
-     *
-     * @returns {*}
-     */
-    render() {
-        return (
-            <div className="container">
-                <div>
-                    <nav>
-                        <Link to="/login">Login</Link>
-                    </nav>
+            <Route
+                path="/login"
+                component={Login}
+            />
 
-                    <Route path="/login" component={Login}/>
-                </div>
-            </div>
-        );
-    }
-}
+            <Private
+                path='/dashboard'
+                authenticated={true}
+                component={Dashboard}
+            />
+        </div>
+    </div>
+)
