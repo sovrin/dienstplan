@@ -1,3 +1,4 @@
+@import (reference) "variables";
 
 #app {
     width: calc(100vw - 12rem);
@@ -7,4 +8,21 @@
 .container {
     margin: 0 auto;
     max-width: 800px;
+}
+
+.login {
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    * > {
+        margin-bottom: @layout-spacing;
+
+        button {
+            margin: 0 auto 0;
+            width: 55%;
+        }
+    }
 }
