@@ -1,14 +1,13 @@
 const {resolve} = require('path');
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
-const {isProduction} = require('../src/utils');
 
 /**
  *
  * @returns {Function}
  */
 const factory = (file) => {
-    if (!isProduction) {
+    if (!process.env.NODE_ENV === 'production') {
         file = 'dev.' + file;
     }
 

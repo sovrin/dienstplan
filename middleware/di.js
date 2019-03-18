@@ -62,14 +62,14 @@ const factory = () => {
      */
     const extract = (fn) => {
         const string = stringify(fn);
-        return string.match(/\((.*?)\)/);
+        return string.match(/\((.*?)\)/) || string.match(/(\w+)/);
     };
 
     /**
      *
      */
     return (next) => (req, res, query) => {
-        next(req, res, query, {inject, register});
+        next(req, res, query, {inject, register, get});
     };
 };
 

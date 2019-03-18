@@ -7,4 +7,6 @@ module.exports = {
     database: require('./database'),
     di: require('./di'),
     auth: require('./auth'),
+    cors: require('./cors'),
+    migration: require('./migration')
 };

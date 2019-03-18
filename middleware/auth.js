@@ -1,4 +1,4 @@
-const {verify} = require('jsonwebtoken');
+const {verify, sign: _sign} = require('jsonwebtoken');
 const {send} = require('micro');
 
 /**
@@ -16,11 +16,9 @@ const factory = () => {
         const [_, token] = authorization.split(' ');
 
         try {
-            const {id} = verify(token, process.env.SECRET, {
+            req.user = verify(token, process.env.SECRET, {
                 maxAge: '24h',
             });
-
-            req.user = id;
 
             return next(req, res, query, di);
         } catch (e) {
@@ -30,8 +28,27 @@ const factory = () => {
 };
 
 /**
+ *
+ * @param username
+ * @param role
+ * @param expiresIn
+ * @returns {*}
+ */
+const sign = ({username, role}, expiresIn = 2 * 24 * 60 * 60) => {
+    const token = _sign({username, role}, process.env.SECRET, {
+        expiresIn,
+    });
+
+    return {
+        token,
+        expiresIn,
+    }
+};
+
+/**
  * User: Oleg Kamlowski <n@sovrin.de>
  * Date: 07.03.2019
  * Time: 22:53
  */
 module.exports = factory;
+module.exports.sign = sign;

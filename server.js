@@ -1,7 +1,8 @@
 require('dotenv').config();
+const {version} = require('./package');
 const router = require('micro-r');
 const {send} = require('micro');
-const {database, di} = require('./middleware');
+const {database, di, cors, migration} = require('./middleware');
 
 const {use, register, route, ready} = router((req, res) => {
     send(res, 404);
@@ -9,6 +10,8 @@ const {use, register, route, ready} = router((req, res) => {
 
 use(di());
 use(database('db.json'));
+use(cors());
+use(migration(__dirname + '/migrations', version));
 
 register(__dirname + '/routes');
 
