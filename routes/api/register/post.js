@@ -1,6 +1,6 @@
 const {send, json} = require('micro');
 const {createHmac} = require('crypto');
-const jwt = require('jsonwebtoken');
+const {auth: {sign}} = require('../../../middleware');
 
 /**
  *
@@ -19,7 +19,7 @@ const handle = async (req, res, query, di) => {
         .digest('hex')
     ;
 
-    di.inject((db) => {
+    const user = di.inject((db) => {
         const found = db.get('users')
             .find({username})
             .value()
@@ -43,12 +43,8 @@ const handle = async (req, res, query, di) => {
         return user;
     });
 
-    const expiresIn = 2 * 24 * 60 * 60;
-    const token = jwt.sign({id: username}, process.env.SECRET, {
-        expiresIn,
-    });
-
-    send(res, 200, {auth: true, token: token});
+    const {token} = sign(user);
+    send(res, 200, {auth: true, token});
 };
 
 /**

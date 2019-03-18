@@ -1,5 +1,5 @@
-const {auth} = require('../../middleware');
 const {parse} = require('url');
+const {auth} = require('../../middleware');
 
 const authenticated = auth();
 

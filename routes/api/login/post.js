@@ -1,6 +1,6 @@
 const {send, json} = require('micro');
 const {createHmac} = require('crypto');
-const jwt = require('jsonwebtoken');
+const {auth: {sign}} = require('../../../middleware');
 
 /**
  *
@@ -29,18 +29,12 @@ const handle = async (req, res, query, di) => {
         .digest('hex')
     ;
 
-    console.info(encrypted);
-
     if (encrypted !== user.password) {
         return send(res, 401);
     }
 
-    const expiresIn = 2 * 24 * 60 * 60;
-    const token = jwt.sign({id: user.id}, process.env.SECRET, {
-        expiresIn: expiresIn,
-    });
-
-    send(res, 200, {token, expiresIn});
+    const payload = sign(user);
+    send(res, 200, payload);
 };
 
 /**
