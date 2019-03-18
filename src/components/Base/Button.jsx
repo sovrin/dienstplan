@@ -10,8 +10,8 @@ export default ({children, loading, block, ...rest}) => {
     const className = composer('btn', {loading, block});
 
     return (
-        <div className={className} {...rest}>
+        <button className={className} {...rest}>
             {children}
-        </div>
+        </button>
     );
 }

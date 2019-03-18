@@ -1,6 +1,34 @@
-const isProduction = process.env.NODE_ENV === 'production';
+import immer from 'immer';
+import {useState} from 'react';
 
-const composer = (...classes) => {
+/**
+ *
+ * @param initialValue
+ * @returns {any[]}
+ */
+export const produce = (initialValue) => {
+    const state = useState(initialValue);
+
+    if (typeof initialValue === 'object') {
+        const [val, updateValue] = state;
+
+        return [
+            val,
+            updater => {
+                updateValue(immer(updater));
+            },
+        ];
+    }
+
+    return state;
+};
+
+/**
+ *
+ * @param classes
+ * @returns {string}
+ */
+export const composer = (...classes) => {
     let composed = [];
 
     if (classes.constructor !== Array) {
@@ -27,13 +55,4 @@ const composer = (...classes) => {
         });
 
     return composed.join(' ').trim();
-};
-
-/**
- * User: Oleg Kamlowski <n@sovrin.de>
- * Date: 12.03.2019
- * Time: 21:58
- */
-module.exports = {
-    isProduction, composer
 };
