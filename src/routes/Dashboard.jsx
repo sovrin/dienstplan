@@ -2,7 +2,7 @@ import React from 'react';
 import Redirect from 'react-router/es/Redirect';
 import Route from 'react-router/es/Route';
 
-import Calendar from '../../src/components/Calendar';
+import Calendar from '../../src/components/Calendar/index';
 
 /**
  * User: Oleg Kamlowski <oleg.kamlowski@thomann.de>

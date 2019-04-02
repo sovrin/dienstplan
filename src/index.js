@@ -1,11 +1,9 @@
 import React from 'react';
 import {render} from 'react-dom';
 import App from './components/App';
-
 import {BrowserRouter as Router} from 'react-router-dom';
 
-import './styles/spectres.scss';
-import './styles/style.less';
+import './styles/style.scss';
 
 render(
     <Router>

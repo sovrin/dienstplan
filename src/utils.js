@@ -1,4 +1,5 @@
 import immer from 'immer';
+import PropTypes from 'prop-types';
 import {useState} from 'react';
 
 /**
@@ -56,3 +57,14 @@ export const composer = (...classes) => {
 
     return composed.join(' ').trim();
 };
+
+/**
+ *
+ * @param keys
+ * @returns {(function(): null)|shim}
+ */
+export const oneOfConstants = (keys) => (
+    PropTypes.oneOf(
+        Object.keys(keys).map(key => keys[key]),
+    )
+);
