@@ -3,19 +3,21 @@ import fetch from 'unfetch';
 
 /**
  *
- * @param url
+ * @param module
  * @returns {*[]}
  */
-export default (url) => {
-    const [data, setData] = useState([]);
+export default (module) => {
+    const endpoint = process.env.API_ENDPOINT + module;
+
+    const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const execute = async () => {
-        const response = await fetch(url);
+        const response = await fetch(endpoint);
         const json = await response.json();
 
-        setData(json);
         setLoading(false);
+        setData(json);
     };
 
     useEffect(() => {
