@@ -1,0 +1,71 @@
+@import "base";
+
+#app {
+  width: calc(100vw - 12rem);
+  margin: auto;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.login {
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  * > {
+    margin-bottom: $layout-spacing;
+
+    button {
+      margin: 0 auto 0;
+      width: 55%;
+    }
+  }
+}
+
+.calendar {
+  justify-content: space-between;
+  padding: 0;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: 0 0 0 $border-width-lg $light-color;
+
+  .row {
+    &:not(:first-child):last-child {
+      > .column {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .column {
+    padding: 1px;
+    border-right: 1px solid $border-color;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  .assignment {
+    > .btn {
+      text-align: left;
+    }
+  }
+
+  .week {
+    > .dropdown {
+      width: 100%;
+
+      > .btn {
+        text-align: left;
+      }
+    }
+  }
+
+  .head {
+  }
+}
