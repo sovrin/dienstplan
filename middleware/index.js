@@ -8,5 +8,7 @@ module.exports = {
     di: require('./di'),
     auth: require('./auth'),
     cors: require('./cors'),
-    migration: require('./migration')
+    migration: require('./migration'),
+    ws: require('./ws'),
+    store: require('./store'),
 };
