@@ -16,7 +16,7 @@ const factory = (next) => (req, ...rest) => {
         '/api/login', '/api/register',
     ];
 
-    if (whitelist.includes(pathname)) {
+    if (whitelist.includes(pathname) || process.env.NODE_ENV === "development") {
         return next(req, ...rest);
     }
 
