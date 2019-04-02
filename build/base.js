@@ -1,5 +1,6 @@
-const {HotModuleReplacementPlugin} = require('webpack');
+const {HotModuleReplacementPlugin, DefinePlugin} = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {parsed} = require('dotenv').config();
 
 /**
  * User: Oleg Kamlowski <n@sovrin.de>
@@ -15,22 +16,6 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: ['babel-loader'],
-            },
-            {
-                test: /\.less$/,
-                use: [
-                    {loader: 'style-loader'},
-                    {
-                        loader: 'css-loader', options: {
-                            sourceMap: true,
-                        },
-                    },
-                    {
-                        loader: 'less-loader', options: {
-                            sourceMap: true,
-                        },
-                    },
-                ],
             },
             {
                 test: /\.scss$/,
@@ -59,6 +44,9 @@ module.exports = {
         filename: 'bundle.js',
     },
     plugins: [
+        new DefinePlugin({
+            'process.env': JSON.stringify(parsed),
+        }),
         new HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             template: __dirname + '/../src/index.html',
